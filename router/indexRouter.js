@@ -84,7 +84,8 @@ router.get("/read", async (req, res) => {
 
     const formattedUsers = users.map((user) => ({
       ...user,
-      createtime: dayjs(user.createtime).add(8, 'hour').format("YYYY-MM-DD HH:mm:ss")
+      createtime: dayjs(user.createtime).add(8, 'hour').format("YYYY-MM-DD HH:mm:ss"),
+      updatetime: dayjs(user.updatetime).add(8, 'hour').format("YYYY-MM-DD HH:mm:ss")
     }));
 
     if (users.length > 0) {
