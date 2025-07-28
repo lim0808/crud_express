@@ -45,6 +45,7 @@ router.post("/update", async (req, res) => {
     );
 
     if (result.affectedRows === 1) {
+      console.log(dataTime)
       res.status(200).json({ success: true });
     } else {
       res.status(400).json({ success: false, message: "No record updated" });
