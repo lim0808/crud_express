@@ -32,7 +32,7 @@ router.post("/create", async (req, res) => {
 
 router.post("/update", async (req, res) => {
   const { name, email, id, gender } = req.body;
-   const dateTime = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  const dateTime = new Date(); // ✅ 正确写法
 
   if (!name || !email || !id) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -40,12 +40,12 @@ router.post("/update", async (req, res) => {
 
   try {
     const [result] = await db.query(
-      "UPDATE user SET name = ?, email = ?,gender=?, updatetime = ? WHERE id = ?",
-      [name, email, gender,dateTime, id]
+      "UPDATE user SET name = ?, email = ?, gender = ?, updatetime = ? WHERE id = ?",
+      [name, email, gender, dateTime, id]
     );
 
     if (result.affectedRows === 1) {
-      console.log(dataTime)
+      console.log(dateTime); // ✅ 变量名修正
       res.status(200).json({ success: true });
     } else {
       res.status(400).json({ success: false, message: "No record updated" });
@@ -54,6 +54,7 @@ router.post("/update", async (req, res) => {
     res.status(500).json({ success: false, error: err });
   }
 });
+
 
 router.post("/delete", async (req, res) => {
   const { id } = req.body;
